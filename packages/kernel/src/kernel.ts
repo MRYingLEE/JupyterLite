@@ -4,6 +4,7 @@ import { ISignal, Signal } from '@lumino/signaling';
 
 import { IKernel } from './tokens';
 
+import { JSONObject } from '@lumino/coreutils';
 /**
  * A base kernel class handling basic kernel messaging.
  */
@@ -158,6 +159,7 @@ export abstract class BaseKernel implements IKernel {
    */
   abstract executeRequest(
     content: KernelMessage.IExecuteRequestMsg['content'],
+    metadata?: JSONObject
   ): Promise<KernelMessage.IExecuteReplyMsg['content']>;
 
   /**
@@ -554,7 +556,7 @@ export abstract class BaseKernel implements IKernel {
       this._history.push([0, 0, content.code]);
     }
 
-    const reply = await this.executeRequest(executeMsg.content);
+    const reply = await this.executeRequest(executeMsg.content, executeMsg.metadata);
     const message = KernelMessage.createMessage<KernelMessage.IExecuteReplyMsg>({
       msgType: 'execute_reply',
       channel: 'shell',
