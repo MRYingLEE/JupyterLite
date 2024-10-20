@@ -13,6 +13,7 @@ import { Kernels } from './kernels';
 
 import { KernelSpecs } from './kernelspecs';
 
+import { JSONObject } from '@lumino/coreutils';
 /**
  * The token for the kernels service.
  */
@@ -171,8 +172,8 @@ export interface IWorkerKernel {
   initialize(options: IWorkerKernel.IOptions): Promise<void>;
   execute(
     content: KernelMessage.IExecuteRequestMsg['content'],
-    metadata?: JSONObject,
     parent: any,
+    metadata?: JSONObject,
   ): Promise<KernelMessage.IExecuteReplyMsg['content']>;
   complete(
     content: KernelMessage.ICompleteRequestMsg['content'],
