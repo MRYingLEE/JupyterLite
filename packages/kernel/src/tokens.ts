@@ -171,6 +171,7 @@ export interface IWorkerKernel {
   initialize(options: IWorkerKernel.IOptions): Promise<void>;
   execute(
     content: KernelMessage.IExecuteRequestMsg['content'],
+    metadata?: JSONObject,
     parent: any,
   ): Promise<KernelMessage.IExecuteReplyMsg['content']>;
   complete(
